@@ -1,10 +1,24 @@
 import { v4 as uuidv4 } from "uuid";
 
-export const authenticationConfig = {
-    response_type: "code",
-    client_id: "b99c2ab2c2fd5e6a0d0cb7ea666892ef",
-    code_challenge: generateCodeChallenge(generateCodeVerifier()),
-};
+interface AuthConfig {
+    response_type: string;
+    client_id: string;
+    state?: string;
+    redirect_uri?: string[];
+    code_challenge: string;
+    code_challenge_method?: string;
+}
+
+export function getAuthenticationConfig(): AuthConfig {
+    const authenticationConfig: AuthConfig = {
+        response_type: "code",
+        client_id: "b99c2ab2c2fd5e6a0d0cb7ea666892ef",
+        redirect_uri: [], // todo add redirect_uri (also to MyAnimeList API settings)
+        code_challenge: generateCodeChallenge(generateCodeVerifier()),
+        code_challenge_method: "plain",
+    };
+    return authenticationConfig;
+}
 
 /**
  * generates code_verifier for PKCE
