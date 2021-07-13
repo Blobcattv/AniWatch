@@ -1,26 +1,46 @@
 import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { authenticate, getAuthenticationConfig } from "./core/authentication";
-import { fetchClientId, getEncryptionKey } from "./core/aniWatch-proxy";
+import {
+    AuthConfig,
+    authenticate,
+    fetchMALToken,
+    getAuthenticationConfig,
+} from "./core/authentication";
+import * as globalConfig from "./core/config";
+import { decrypt } from "./core/crypt";
 
 function App(): JSX.Element {
-    const [authenticationConfig, setAuthenticationConfig] = useState({});
+    const [config] = useState<AuthConfig>(getAuthenticationConfig());
     const [token, setToken] = useState("");
 
-    useEffect(() => {
-        async function fetchToken() {
-            const key = await getEncryptionKey();
-            const id = await fetchClientId(key);
-            const cfg = await getAuthenticationConfig(id);
-            setAuthenticationConfig(cfg);
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const code = params.get("code");
 
-            const authorizationCode = await authenticate(cfg);
-            console.log(authorizationCode);
+    useEffect(() => {
+        async function fetchToken(): Promise<void> {
+            if (token) {
+                return;
+            }
+
+            if (!code) {
+                console.log("authentication code not set");
+                await authenticate(config);
+                return;
+            }
+
+            const tkn = await fetchMALToken(
+                decrypt(globalConfig.config.encryptedClientSecret),
+                code,
+                config
+            );
+            setToken(tkn);
         }
 
         fetchToken();
-    }, []);
+    });
+
     return (
         <div className="App">
             <header className="App-header">
@@ -38,10 +58,7 @@ function App(): JSX.Element {
                 </a>
             </header>
             <div>
-                <p>
-                    authenticationConfig is:{" "}
-                    {JSON.stringify(authenticationConfig)}
-                </p>
+                <p>Config is: {JSON.stringify(config)}</p>
                 <p>Token is: {token}</p>
             </div>
         </div>

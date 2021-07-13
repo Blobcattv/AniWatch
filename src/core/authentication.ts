@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
+import { config } from "./config";
+import { decrypt } from "./crypt";
 
-interface AuthConfig {
+export interface AuthConfig {
     response_type: string;
     client_id: string;
     state?: string;
@@ -9,43 +11,28 @@ interface AuthConfig {
     code_challenge_method?: string;
 }
 
-export async function getAuthenticationConfig(
-    clientId: string
-): Promise<AuthConfig> {
-    const authenticationConfig: AuthConfig = {
-        response_type: "code",
-        client_id: clientId,
-        redirect_uri: "https://minatore0712.github.io/AniWatch/",
-        code_challenge: generateCodeChallenge(generateCodeVerifier()),
-        code_challenge_method: "plain",
-    };
-    return authenticationConfig;
+export async function fetchMALToken(
+    clientSecret: string,
+    authorizationCode: string,
+    config: AuthConfig
+): Promise<string> {
+    let url = `https://myanimelist.net/v1/oauth2/token?`;
+    url = url.concat(`client_id=${decrypt(config.client_id)}`);
+    url = url.concat(`client_secret=${clientSecret}`);
+    url = url.concat(`grant_type=authorization_code`);
+    url = url.concat(`code=${authorizationCode}`);
+    url = url.concat(`redirect_uri=${config.redirect_uri}`);
+    url = url.concat(`code_verifier=${config.code_challenge}`);
+
+    const response = await fetch(url);
+    return await response.text();
 }
 
-// export async function fetchToken(
-//     clientSecret: string,
-//     authorizationCode: string,
-//     config: AuthConfig
-// ): Promise<string> {
-//     let url = `https://myanimelist.net/v1/oauth2/token?`;
-//     url = url.concat(`client_id=${config.client_id}`);
-//     url = url.concat(`client_secret=${clientSecret}`);
-//     url = url.concat(`grant_type=authorization_code`);
-//     url = url.concat(`code=${authorizationCode}`);
-//     url = url.concat(`redirect_uri=${config.redirect_uri}`);
-//     url = url.concat(`code_verifier=${config.code_challenge}`);
-
-//     const response = await fetch(url, { mode: "cors" });
-//     const tkn = await response.json();
-//     return tkn;
-// }
-
 /**
- * Authenticates against MyAnimeList
+ * Authenticates against MyAnimeList; will reroute to config.redirect_uri which in turn will set queryParam 'code' on redirect_uri webpage
  * @param config configuration for authentication request
- * @returns authorization_code
  */
-export async function authenticate(config: AuthConfig): Promise<string> {
+export async function authenticate(config: AuthConfig): Promise<void> {
     let url = `https://myanimelist.net/v1/oauth2/authorize?`;
     url = url.concat(`response_type=${config.response_type}`);
     url = url.concat(`&client_id=${config.client_id}`);
@@ -65,9 +52,23 @@ export async function authenticate(config: AuthConfig): Promise<string> {
         );
     }
 
-    const response = await fetch(url, { mode: "cors" });
-    const data = await response.json();
-    return data;
+    const options: RequestInit = {
+        method: "POST",
+        body: JSON.stringify(config),
+        headers: { "Content-Type": "application/json" },
+    };
+    await fetch(url, options);
+}
+
+export function getAuthenticationConfig(): AuthConfig {
+    const authenticationConfig: AuthConfig = {
+        response_type: "code",
+        client_id: decrypt(config.encryptedClientId),
+        redirect_uri: "https://minatore0712.github.io/AniWatch/",
+        code_challenge: generateCodeChallenge(generateCodeVerifier()),
+        code_challenge_method: "plain",
+    };
+    return authenticationConfig;
 }
 
 /**
