@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/AniWatch/static/css/main.a617e044.chunk.css",
+    "main.js": "/AniWatch/static/js/main.e016bacc.chunk.js",
+    "main.js.map": "/AniWatch/static/js/main.e016bacc.chunk.js.map",
+    "runtime-main.js": "/AniWatch/static/js/runtime-main.2ff3bbd7.js",
+    "runtime-main.js.map": "/AniWatch/static/js/runtime-main.2ff3bbd7.js.map",
+    "static/js/2.3e5b58a5.chunk.js": "/AniWatch/static/js/2.3e5b58a5.chunk.js",
+    "static/js/2.3e5b58a5.chunk.js.map": "/AniWatch/static/js/2.3e5b58a5.chunk.js.map",
+    "static/js/3.8f6301cd.chunk.js": "/AniWatch/static/js/3.8f6301cd.chunk.js",
+    "static/js/3.8f6301cd.chunk.js.map": "/AniWatch/static/js/3.8f6301cd.chunk.js.map",
+    "index.html": "/AniWatch/index.html",
+    "static/css/main.a617e044.chunk.css.map": "/AniWatch/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.3e5b58a5.chunk.js.LICENSE.txt": "/AniWatch/static/js/2.3e5b58a5.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/AniWatch/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2ff3bbd7.js",
+    "static/js/2.3e5b58a5.chunk.js",
+    "static/css/main.a617e044.chunk.css",
+    "static/js/main.e016bacc.chunk.js"
+  ]
+}
