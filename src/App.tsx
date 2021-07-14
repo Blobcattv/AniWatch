@@ -1,45 +1,34 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import {
-    AuthConfig,
-    authenticate,
-    fetchMALToken,
-    getAuthenticationConfig,
-} from "./core/authentication";
-import * as globalConfig from "./core/config";
-import { decrypt } from "./core/crypt";
+import { fetchData } from "./core/anilist";
 
 function App(): JSX.Element {
-    const [config] = useState<AuthConfig>(getAuthenticationConfig());
-    const [token, setToken] = useState("");
-
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const code = params.get("code");
+    const [data, setData] = useState("");
 
     useEffect(() => {
-        async function fetchToken(): Promise<void> {
-            if (token) {
-                return;
-            }
+        const query = `query ($id: Int) { # Define which variables will be used in the query (id)
+                            Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+                                id
+                                title {
+                                romaji
+                                english
+                                native
+                                }
+                            }
+                        }`;
 
-            if (!code) {
-                console.log("authentication code not set");
-                await authenticate(config);
-                return;
-            }
+        const variables = {
+            id: 15125,
+        };
 
-            const tkn = await fetchMALToken(
-                decrypt(globalConfig.config.encryptedClientSecret),
-                code,
-                config
-            );
-            setToken(tkn);
+        async function queryData(): Promise<void> {
+            const result = await fetchData(query, variables);
+            setData(result);
         }
 
-        fetchToken();
-    });
+        queryData();
+    }, []);
 
     return (
         <div className="App">
@@ -58,8 +47,7 @@ function App(): JSX.Element {
                 </a>
             </header>
             <div>
-                <p>Config is: {JSON.stringify(config)}</p>
-                <p>Token is: {token}</p>
+                <p>Data is: {JSON.stringify(data)}</p>
             </div>
         </div>
     );
