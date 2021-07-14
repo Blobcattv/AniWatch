@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/AniWatch/static/css/main.a617e044.chunk.css",
-    "main.js": "/AniWatch/static/js/main.7f1e1b6a.chunk.js",
-    "main.js.map": "/AniWatch/static/js/main.7f1e1b6a.chunk.js.map",
+    "main.js": "/AniWatch/static/js/main.820f5478.chunk.js",
+    "main.js.map": "/AniWatch/static/js/main.820f5478.chunk.js.map",
     "runtime-main.js": "/AniWatch/static/js/runtime-main.bd958ae9.js",
     "runtime-main.js.map": "/AniWatch/static/js/runtime-main.bd958ae9.js.map",
     "static/js/2.161c28d1.chunk.js": "/AniWatch/static/js/2.161c28d1.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.bd958ae9.js",
     "static/js/2.161c28d1.chunk.js",
     "static/css/main.a617e044.chunk.css",
-    "static/js/main.7f1e1b6a.chunk.js"
+    "static/js/main.820f5478.chunk.js"
   ]
 }
