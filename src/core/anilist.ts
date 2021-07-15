@@ -1,13 +1,40 @@
-// always use POST
-// API has a Limit of 90 calls per minute
-// todo: may need a backend service with cache
+/**
+ * AniList info
+ * GraphQL API must be fetched using POST method;
+ * API has limit of 90 calls per minute;
+ */
 
 import { config } from "./config";
+import { queryMediaBySeason } from "./queries";
+import { MediaSeason, Page } from "./types";
 
-export async function fetchData(
+export async function fetchMediaPageBySeason(
+    season: MediaSeason,
+    seasonYear: number,
+    page: number,
+    perPage: number
+): Promise<Page> {
+    const query = queryMediaBySeason;
+    const variables = {
+        season,
+        seasonYear,
+        page,
+        perPage,
+    };
+
+    try {
+        const res = await fetchData(query, variables);
+        return res as Page;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
+async function fetchData(
     query: string,
     variables: Record<string, unknown>
-): Promise<string> {
+): Promise<unknown> {
     const url = config.url;
     const options: RequestInit = {
         method: "POST",

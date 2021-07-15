@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { fetchData } from "./core/anilist";
-import { MediaSeason, queryMediaSeason } from "./core/queries";
+import { fetchMediaPageBySeason } from "./core/anilist";
+import { MediaSeason, Page } from "./core/types";
 
 function App(): JSX.Element {
-    const [data, setData] = useState("");
+    const [data, setData] = useState({} as Page);
 
     useEffect(() => {
-        const query = queryMediaSeason;
-        const variables = {
-            page: 1,
-            perPage: 10,
-            season: MediaSeason.SUMMER,
-            seasonYear: 2021,
-        };
-
         async function queryData(): Promise<void> {
-            const result = await fetchData(query, variables);
+            const result = await fetchMediaPageBySeason(
+                MediaSeason.SUMMER,
+                2021,
+                1,
+                10
+            );
             setData(result);
             console.log(JSON.stringify(result));
         }
