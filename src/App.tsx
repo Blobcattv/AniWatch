@@ -2,29 +2,24 @@ import { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { fetchData } from "./core/anilist";
+import { MediaSeason, queryMediaSeason } from "./core/queries";
 
 function App(): JSX.Element {
     const [data, setData] = useState("");
 
     useEffect(() => {
-        const query = `query ($id: Int) { # Define which variables will be used in the query (id)
-                            Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
-                                id
-                                title {
-                                romaji
-                                english
-                                native
-                                }
-                            }
-                        }`;
-
+        const query = queryMediaSeason;
         const variables = {
-            id: 15125,
+            page: 1,
+            perPage: 10,
+            season: MediaSeason.SUMMER,
+            seasonYear: 2021,
         };
 
         async function queryData(): Promise<void> {
             const result = await fetchData(query, variables);
             setData(result);
+            console.log(JSON.stringify(result));
         }
 
         queryData();
@@ -46,9 +41,6 @@ function App(): JSX.Element {
                     Learn React
                 </a>
             </header>
-            <div>
-                <p>Data is: {JSON.stringify(data)}</p>
-            </div>
         </div>
     );
 }

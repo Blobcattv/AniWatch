@@ -1,4 +1,6 @@
 // always use POST
+// API has a Limit of 90 calls per minute
+// todo: may need a backend service with cache
 
 import { config } from "./config";
 
