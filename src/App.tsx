@@ -4,6 +4,8 @@ import "./App.css";
 import { fetchMediaPageBySeason } from "./core/anilist";
 import { MediaSeason, Page } from "./core/types";
 
+// todo Use LocalStorage
+
 function App(): JSX.Element {
     const [data, setData] = useState({} as Page);
 
