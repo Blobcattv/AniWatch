@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { fetchMediaPageBySeason } from "./core/anilist";
 import { MediaSeason, Page } from "./core/types";
+import { Home } from "./home";
 
 // todo Use LocalStorage
 
@@ -26,7 +27,7 @@ function App(): JSX.Element {
 
     return (
         <div className="App">
-            <header className="App-header">
+            {/* <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
@@ -39,7 +40,8 @@ function App(): JSX.Element {
                 >
                     Learn React
                 </a>
-            </header>
+            </header> */}
+            <Home />
         </div>
     );
 }
