@@ -16,12 +16,7 @@ export function Home(): JSX.Element {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6">News</Typography>
-                <Button
-                    disabled
-                    color="inherit"
-                    className="mr-auto"
-                    style={{ marginLeft: "auto" }}
-                >
+                <Button disabled color="inherit" style={{ marginLeft: "auto" }}>
                     Login
                 </Button>
             </Toolbar>
