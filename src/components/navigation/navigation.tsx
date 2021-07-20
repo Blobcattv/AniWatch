@@ -6,7 +6,8 @@ import {
     Button,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import "./App.css";
+
+import "./navigation.css";
 
 export function Navigation(): JSX.Element {
     return (

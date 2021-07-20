@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import { fetchMediaPageBySeason } from "../../core/anilist";
+import { MediaSeason, Page } from "../../core/types";
+import { Navigation } from "../navigation/navigation";
+import { Home } from "../home/home";
+
 import "./App.css";
-import { fetchMediaPageBySeason } from "./core/anilist";
-import { MediaSeason, Page } from "./core/types";
-import { Navigation } from "./navigation";
-import { Home } from "./home";
 
 // todo Use LocalStorage
 
-function App(): JSX.Element {
+export function App(): JSX.Element {
     const [data, setData] = useState({} as Page);
 
     useEffect(() => {
@@ -47,5 +47,3 @@ function App(): JSX.Element {
         </div>
     );
 }
-
-export default App;

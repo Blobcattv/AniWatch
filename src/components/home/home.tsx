@@ -7,6 +7,8 @@ import {
     Radio,
 } from "@material-ui/core";
 
+import "./home.css";
+
 export function Home(): JSX.Element {
     return (
         <div>
