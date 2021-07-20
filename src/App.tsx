@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { fetchMediaPageBySeason } from "./core/anilist";
 import { MediaSeason, Page } from "./core/types";
+import { Navigation } from "./navigation";
 import { Home } from "./home";
 
 // todo Use LocalStorage
@@ -41,6 +42,7 @@ function App(): JSX.Element {
                     Learn React
                 </a>
             </header> */}
+            <Navigation />
             <Home />
         </div>
     );
