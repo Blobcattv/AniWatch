@@ -9,26 +9,26 @@ import "./App.css";
 // todo Use LocalStorage
 
 export function App(): JSX.Element {
-    const [data, setData] = useState({} as Page);
+  const [data, setData] = useState({} as Page);
 
-    useEffect(() => {
-        async function queryData(): Promise<void> {
-            const result = await fetchMediaPageBySeason(
-                MediaSeason.SUMMER,
-                2021,
-                1,
-                10
-            );
-            setData(result);
-            console.log(JSON.stringify(result));
-        }
+  useEffect(() => {
+    async function queryData(): Promise<void> {
+      const result = await fetchMediaPageBySeason(
+        MediaSeason.SUMMER,
+        2021,
+        1,
+        10
+      );
+      setData(result);
+      console.log(JSON.stringify(result));
+    }
 
-        queryData();
-    }, []);
+    queryData();
+  }, []);
 
-    return (
-        <div className="App">
-            {/* <header className="App-header">
+  return (
+    <div className="App">
+      {/* <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
@@ -42,8 +42,8 @@ export function App(): JSX.Element {
                     Learn React
                 </a>
             </header> */}
-            <Navigation />
-            <Home />
-        </div>
-    );
+      <Navigation />
+      <Home />
+    </div>
+  );
 }
