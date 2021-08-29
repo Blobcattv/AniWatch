@@ -15,6 +15,11 @@ export function Card(props: CardProps): JSX.Element {
 
   return (
     <Paper className="Card">
+      <img
+        className="CardImage"
+        src={props.media.coverImage.large}
+        alt="AnimeImage"
+      />
       <div className="CardContent">
         <h1>{props.media.title.romaji}</h1>
         <div className="GenreList">
