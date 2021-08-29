@@ -17,33 +17,22 @@ export function App(): JSX.Element {
         MediaSeason.SUMMER,
         2021,
         1,
-        10
+        50
       );
       setData(result);
-      console.log(JSON.stringify(result));
     }
-
     queryData();
   }, []);
 
+  if (!data.media) {
+    // todo better loading screen
+    return <h1>Loading!</h1>;
+  }
+
   return (
     <div className="App">
-      {/* <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header> */}
       <Navigation />
-      <Home />
+      <Home media={data.media} />
     </div>
   );
 }

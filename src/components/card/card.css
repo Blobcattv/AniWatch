@@ -1,0 +1,57 @@
+.Card {
+  height: 500px;
+  width: 300px;
+  background-image: url("https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx102891-lVsBWszCtTxd.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.Card h1 {
+  font-size: 19pt;
+}
+
+.Card p {
+  padding-bottom: 10px;
+  font-size: 12pt;
+  line-height: 1.5;
+}
+
+.CardContent {
+  padding: 10px 25px;
+  color: white;
+  height: 400px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(0deg, rgba(2, 0, 36, 0.908000700280112) 0%, rgba(0, 0, 3, 0) 100%);
+  position: absolute;
+  top: 320px;
+  transition: all .4s ease-in-out;
+}
+
+.Card:hover .CardContent {
+  top: 100px;
+}
+
+.CardButton {
+  color: black;
+  text-decoration: none;
+  background-color: white;
+  border: none;
+  padding: 5px 13px;
+  border-radius: 30px;
+}
+
+.GenreList {
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.GenreTag {
+  float: left;
+  font-size: 9pt;
+  border-radius: 30px;
+  background-color: rgb(167, 29, 82);
+  margin-right: 10px;
+  padding: 2px 6px;
+}
