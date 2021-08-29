@@ -1,3 +1,14 @@
+
+export interface UserData {
+    media: AniWatchMedia[],
+}
+
+export interface AniWatchMedia extends Media {
+    watched: number,
+}
+
+// AniList types
+
 export enum MediaSeason {
     WINTER = "WINTER",
     SPRING = "SPRING",
